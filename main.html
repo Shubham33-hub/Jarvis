@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>J.A.R.V.I.S</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background: #000;
+            overflow: hidden;
+            font-family: 'Arial Narrow', Arial, sans-serif;
+        }
+
+        .hud {
+            width: 460px;
+            height: 460px;
+            position: fixed;
+            bottom: 30px;           /* a bit more breathing room */
+            left: 30px;
+            transform: scale(0.50); /* ← NOW 50% of original size */
+            transform-origin: bottom left;
+            z-index: 10;
+        }
+
+        :root {
+            --jarvis: #00ddff;
+            --jarvis-glow: #00ddff;
+            --blue: #00ddff;
+        }
+
+        .text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--blue);
+            font-size: 23px;           /* still 23px as you requested */
+            font-weight: bold;
+            letter-spacing: 10px;      /* looks perfect at 50% scale */
+            z-index: 20;
+            text-shadow: 0 0 15px var(--blue), 0 0 40px var(--blue);
+            white-space: nowrap;
+        }
+
+        /* All rings – compact syntax */
+        .pulse, .glow, .mainRing, .binaryRing, .dashRing,
+        .ovalDotsRing, .neonArc, .ticks, .segments {
+            position: absolute;
+            inset: 0;
+            margin: auto;
+            border-radius: 50%;
+        }
+
+        .pulse   { width: 230px; height: 230px; border: 3px solid var(--jarvis); box-shadow: 0 0 35px var(--jarvis-glow), inset 0 0 30px #00ddff44; }
+        .glow    { width: 300px; height: 300px; background: radial-gradient(circle, rgba(0,221,255,0.25), transparent 70%); filter: blur(6px); }
+        .mainRing{ width: 330px; height: 330px; border: 4px solid var(--jarvis); box-shadow: 0 0 30px var(--jarvis-glow); }
+        .binaryRing{ width: 380px; height: 380px; border: 2px dotted #00ddff55; animation: rotate 9s linear infinite; }
+        .dashRing{ width: 420px; height: 420px; border: 3px dashed #00ddff44; animation: rotate 14s linear infinite reverse; }
+
+        .ovalDotsRing { width: 350px; height: 350px; animation: rotate 10s linear infinite; }
+        .ovalDotsRing span {
+            position: absolute;
+            width: 16px; height: 7px;
+            background: var(--jarvis);
+            border-radius: 50%;
+            top: 0; left: 50%;
+            transform-origin: center 175px;
+            box-shadow: 0 0 12px var(--jarvis-glow);
+        }
+
+        .neonArc {
+            width: 350px; height: 350px;
+            border-top: 10px solid var(--jarvis);
+            border-left: 2px solid #00ddff44;
+            border-right: 2px solid #00ddff44;
+            opacity: 0.95;
+            filter: drop-shadow(0 0 20px var(--jarvis-glow));
+            transform: rotate(-18deg);
+        }
+
+        .ticks { width: 460px; height: 460px; animation: rotate 22s linear infinite; }
+        .ticks span {
+            position: absolute;
+            width: 3px; height: 16px;
+            background: var(--jarvis);
+            top: 0; left: 50%;
+            transform-origin: center 230px;
+            box-shadow: 0 0 8px var(--jarvis);
+        }
+
+        .segments::before,
+        .segments::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border-top: 4px solid var(--jarvis);
+            border-bottom: 4px solid #00ddff88;
+            clip-path: polygon(10% 0, 90% 0, 100% 20%, 0 20%);
+            animation: rotate 16s linear infinite;
+        }
+        .segments::after {
+            clip-path: polygon(0 80%, 100% 80%, 90% 100%, 10% 100%);
+            animation-duration: 24s;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="hud">
+        <div class="pulse"></div>
+        <div class="glow"></div>
+        <div class="mainRing"></div>
+        <div class="binaryRing"></div>
+        <div class="dashRing"></div>
+
+        <div class="ovalDotsRing">
+            <script>
+                for (let i = 0; i < 40; i++) {
+                    document.write(`<span style="transform: rotate(${i * 9}deg)"></span>`);
+                }
+            </script>
+        </div>
+
+        <div class="neonArc"></div>
+
+        <div class="ticks">
+            <script>
+                for (let i = 0; i < 48; i++) {
+                    document.write(`<span style="transform: rotate(${i * 7.5}deg)"></span>`);
+                }
+            </script>
+        </div>
+
+        <div class="segments"></div>
+        <div class="text">J.A.R.V.I.S</div>
+    </div>
+</body>
+</html>
